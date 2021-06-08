@@ -88,7 +88,13 @@ def download_song(data: dict, path: str, audio_format: str):
         }
         # video path is needed if you want to use ffmpeg to convert audio format
         video_data['filepath'] = os.path.join(os.getcwd(), path, video_data['title'] + "." + video_data['ext'])
-
+        
+        # checks if the video already exists!
+        print(os.listdir(os.path.join(os.getcwd(), path)))
+        if video_data['title']+"."+audio_format in os.listdir(path):
+            print("[NOTICE] '{}' exists within '{}'".format(video_data['title']+"."+audio_format, path))
+            return None
+        
         # now try downloading the song
         # notify user that you are downloading the song!
         print("Downloading:\t{}".format(video_data['title']))
